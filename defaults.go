@@ -10,8 +10,8 @@ var symbolTemplates = map[string]Symbols{
 		SeparatorReverseThin: "\u276E",
 
 		RepoDetached:   "\u2693",
-		RepoAhead:      "\u2B06",
-		RepoBehind:     "\u2B07",
+		RepoAhead:      "u+",
+		RepoBehind:     "u-",
 		RepoStaged:     "+",
 		RepoNotStaged:  "*",
 		RepoUntracked:  "%",
@@ -27,8 +27,8 @@ var symbolTemplates = map[string]Symbols{
 		SeparatorReverseThin: "\uE0B3",
 
 		RepoDetached:   "\u2693",
-		RepoAhead:      "\u2B06",
-		RepoBehind:     "\u2B07",
+		RepoAhead:      "u+",
+		RepoBehind:     "u-",
 		RepoStaged:     "+",
 		RepoNotStaged:  "*",
 		RepoUntracked:  "%",
@@ -37,8 +37,8 @@ var symbolTemplates = map[string]Symbols{
 	},
 	"flat": {
 		RepoDetached:   "\u2693",
-		RepoAhead:      "\u2B06",
-		RepoBehind:     "\u2B07",
+		RepoAhead:      "u+",
+		RepoBehind:     "u-",
 		RepoStaged:     "+",
 		RepoNotStaged:  "*",
 		RepoUntracked:  "%",
