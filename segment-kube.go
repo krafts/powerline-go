@@ -82,9 +82,11 @@ func segmentKube(p *powerline) {
 	user, _ := os.LookupEnv("USER")
 	prod := false
 	staging := false
+	uat := false
 	dev := false
 	prodDomain := ""
 	stagingDomain := ""
+	uatDomain := ""
 	devDomain := ""
 	label_b := ""
 	label_e := ""
@@ -110,6 +112,8 @@ func segmentKube(p *powerline) {
 							prodDomain = strings.Split(domain, "=")[1]
 						} else if strings.HasPrefix(domain, "STAGING=") {
 							stagingDomain = strings.Split(domain, "=")[1]
+						} else if strings.HasPrefix(domain, "UAT=") {
+							uatDomain = strings.Split(domain, "=")[1]
 						} else if strings.HasPrefix(domain, "DEV=") {
 							devDomain = strings.Split(domain, "=")[1]
 						}
@@ -129,6 +133,12 @@ func segmentKube(p *powerline) {
 				label_e = " STAGING"
 				fg = p.theme.ShellVarFg
 				bg = p.theme.ShellVarBg
+			} else if environment == uatDomain {
+				staging = true
+				label_b = ""
+				label_e = " UAT"
+				fg = p.theme.GitNotStagedFg
+				bg = p.theme.GitNotStagedBg
 			} else if environment == devDomain && !strings.HasPrefix(cluster, user) {
 				dev = true
 				label_b = ""
@@ -152,7 +162,7 @@ func segmentKube(p *powerline) {
 	//kubeIconHasBeenDrawnYet := false
 	if cluster != "" {
 		//kubeIconHasBeenDrawnYet = true
-		if prod || staging || dev {
+		if prod || staging || uat || dev {
 			p.appendSegment("kube-cluster", pwl.Segment{
 				Content:    fmt.Sprintf("⎈ %s%s%s", label_b, cluster, label_e),
 				Foreground: fg,
