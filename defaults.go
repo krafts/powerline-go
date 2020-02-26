@@ -16,7 +16,7 @@ var symbolTemplates = map[string]Symbols{
 		RepoNotStaged:  "*",
 		RepoUntracked:  "%",
 		RepoConflicted: "!",
-		RepoStashed:    "$",
+		RepoStashed:    "\u2691",
 	},
 	"patched": {
 		Lock:                 "\uE0A2",
@@ -33,7 +33,7 @@ var symbolTemplates = map[string]Symbols{
 		RepoNotStaged:  "*",
 		RepoUntracked:  "%",
 		RepoConflicted: "!",
-		RepoStashed:    "$",
+		RepoStashed:    "\u2691",
 	},
 	"flat": {
 		RepoDetached:   "\u2693",
@@ -43,7 +43,7 @@ var symbolTemplates = map[string]Symbols{
 		RepoNotStaged:  "*",
 		RepoUntracked:  "%",
 		RepoConflicted: "!",
-		RepoStashed:    "$",
+		RepoStashed:    "\u2691",
 	},
 }
 
