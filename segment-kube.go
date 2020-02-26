@@ -69,14 +69,25 @@ func segmentKube(p *powerline) {
 	}
 
 	cluster := ""
-	namespace := ""
+	//namespace := ""
+	environment := ""
 	for _, context := range config.Contexts {
 		if context.Name == config.CurrentContext {
 			cluster = context.Name
-			namespace = context.Context.Namespace
+			//namespace = context.Context.Namespace
 			break
 		}
 	}
+
+	user, _ := os.LookupEnv("USER")
+	prod := false
+	staging := false
+	dev := false
+	prodDomain := ""
+	stagingDomain := ""
+	devDomain := ""
+	fg := p.theme.KubeClusterFg
+	bg := p.theme.KubeClusterBg
 
 	// When you use gke your clusters may look something like gke_projectname_availability-zone_cluster-01
 	// instead I want it to read as `cluster-01`
@@ -85,6 +96,38 @@ func segmentKube(p *powerline) {
 		segments := strings.Split(cluster, "_")
 		if len(segments) > 3 {
 			cluster = strings.Join(segments[3:], "_")
+			environment = segments[1]
+
+			k8sDomainsFile := path.Join(homePath(), ".kubectl_context_ps1_domains")
+			stat, err := os.Stat(k8sDomainsFile)
+			if err == nil && !stat.IsDir() {
+				domains, err := ioutil.ReadFile(k8sDomainsFile)
+				if err == nil {
+					for _, domain := range strings.Split(string(domains), "\n") {
+						if strings.HasPrefix(domain, "PROD="){
+							prodDomain = strings.Split(domain, "=")[1]
+						} else if strings.HasPrefix(domain, "STAGING=") {
+							stagingDomain = strings.Split(domain, "=")[1]
+						} else if strings.HasPrefix(domain, "DEV=") {
+							devDomain = strings.Split(domain, "=")[1]
+						}
+					}
+				}
+			}
+
+			if environment == prodDomain {
+				prod = true
+				fg = p.theme.CmdFailedFg
+				bg = p.theme.CmdFailedBg
+			} else if environment == stagingDomain {
+				staging = true
+				fg = p.theme.ShellVarFg
+				bg = p.theme.ShellVarBg
+			} else if environment == devDomain && !strings.HasPrefix(cluster, user) {
+				dev = true
+				fg = p.theme.KubeClusterFg
+				bg = p.theme.KubeClusterBg
+			}
 		}
 	}
 
@@ -98,25 +141,27 @@ func segmentKube(p *powerline) {
 	}
 
 	// Only draw the icon once
-	kubeIconHasBeenDrawnYet := false
+	//kubeIconHasBeenDrawnYet := false
 	if cluster != "" {
-		kubeIconHasBeenDrawnYet = true
-		p.appendSegment("kube-cluster", pwl.Segment{
-			Content:    fmt.Sprintf("⎈ %s", cluster),
-			Foreground: p.theme.KubeClusterFg,
-			Background: p.theme.KubeClusterBg,
-		})
+		//kubeIconHasBeenDrawnYet = true
+		if prod || staging || dev {
+			p.appendSegment("kube-cluster", pwl.Segment{
+				Content:    fmt.Sprintf("⎈ %s", cluster),
+				Foreground: fg,
+				Background: bg,
+			})
+		}
 	}
 
-	if namespace != "" {
-		content := namespace
-		if !kubeIconHasBeenDrawnYet {
-			content = fmt.Sprintf("⎈ %s", content)
-		}
-		p.appendSegment("kube-namespace", pwl.Segment{
-			Content:    content,
-			Foreground: p.theme.KubeNamespaceFg,
-			Background: p.theme.KubeNamespaceBg,
-		})
-	}
+	// if namespace != "" {
+	// 	content := namespace
+	// 	if !kubeIconHasBeenDrawnYet {
+	// 		content = fmt.Sprintf("⎈ %s", content)
+	// 	}
+	// 	p.appendSegment("kube-namespace", pwl.Segment{
+	// 		Content:    content,
+	// 		Foreground: p.theme.KubeNamespaceFg,
+	// 		Background: p.theme.KubeNamespaceBg,
+	// 	})
+	// }
 }
