@@ -7,7 +7,7 @@ import (
 
 func segmentTime(p *powerline) {
 	p.appendSegment("time", pwl.Segment{
-		Content:    time.Now().Format("15:04:05"),
+		Content:    time.Now().Format("01-02T15:04:05"),
 		Foreground: p.theme.TimeFg,
 		Background: p.theme.TimeBg,
 	})
