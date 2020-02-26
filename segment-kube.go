@@ -86,6 +86,8 @@ func segmentKube(p *powerline) {
 	prodDomain := ""
 	stagingDomain := ""
 	devDomain := ""
+	label_b := ""
+	label_e := ""
 	fg := p.theme.KubeClusterFg
 	bg := p.theme.KubeClusterBg
 
@@ -117,14 +119,20 @@ func segmentKube(p *powerline) {
 
 			if environment == prodDomain {
 				prod = true
+				label_b = "PROD->>!!! "
+				label_e = " !!!<<-PROD"
 				fg = p.theme.CmdFailedFg
 				bg = p.theme.CmdFailedBg
 			} else if environment == stagingDomain {
 				staging = true
+				label_b = ""
+				label_e = " STAGING"
 				fg = p.theme.ShellVarFg
 				bg = p.theme.ShellVarBg
 			} else if environment == devDomain && !strings.HasPrefix(cluster, user) {
 				dev = true
+				label_b = ""
+				label_e = " DEV"
 				fg = p.theme.KubeClusterFg
 				bg = p.theme.KubeClusterBg
 			}
@@ -146,7 +154,7 @@ func segmentKube(p *powerline) {
 		//kubeIconHasBeenDrawnYet = true
 		if prod || staging || dev {
 			p.appendSegment("kube-cluster", pwl.Segment{
-				Content:    fmt.Sprintf("⎈ %s", cluster),
+				Content:    fmt.Sprintf("⎈ %s%s%s", label_b, cluster, label_e),
 				Foreground: fg,
 				Background: bg,
 			})
