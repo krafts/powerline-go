@@ -34,19 +34,9 @@ func addRepoStatsSegment(p *powerline, nChanges int, symbol string, foreground u
 	}
 }
 
-func addRepoStatsSegmentSymbolFirst(p *powerline, nChanges int, symbol string, foreground uint8, background uint8) {
-	if nChanges > 0 {
-		p.appendSegment("git-status", pwl.Segment{
-			Content:    fmt.Sprintf("%s%d", symbol, nChanges),
-			Foreground: foreground,
-			Background: background,
-		})
-	}
-}
-
 func (r repoStats) addToPowerline(p *powerline) {
-	addRepoStatsSegmentSymbolFirst(p, r.ahead, p.symbolTemplates.RepoAhead, p.theme.GitAheadFg, p.theme.GitAheadBg)
-	addRepoStatsSegmentSymbolFirst(p, r.behind, p.symbolTemplates.RepoBehind, p.theme.GitBehindFg, p.theme.GitBehindBg)
+	addRepoStatsSegment(p, r.ahead, p.symbolTemplates.RepoAhead, p.theme.GitAheadFg, p.theme.GitAheadBg)
+	addRepoStatsSegment(p, r.behind, p.symbolTemplates.RepoBehind, p.theme.GitBehindFg, p.theme.GitBehindBg)
 	addRepoStatsSegment(p, r.notStaged, p.symbolTemplates.RepoNotStaged, p.theme.GitNotStagedFg, p.theme.GitNotStagedBg)
 	addRepoStatsSegment(p, r.staged, p.symbolTemplates.RepoStaged, p.theme.GitStagedFg, p.theme.GitStagedBg)
 	addRepoStatsSegment(p, r.untracked, p.symbolTemplates.RepoUntracked, p.theme.GitUntrackedFg, p.theme.GitUntrackedBg)
