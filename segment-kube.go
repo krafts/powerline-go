@@ -125,8 +125,8 @@ func segmentKube(p *powerline) {
 				prod = true
 				label_b = "PROD->>!!! "
 				label_e = " !!!<<-PROD"
-				fg = p.theme.CmdFailedFg
-				bg = p.theme.CmdFailedBg
+				fg = p.theme.KubeProdFg
+				bg = p.theme.KubeProdBg
 			} else if environment == stagingDomain {
 				staging = true
 				label_b = ""

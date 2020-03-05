@@ -60,6 +60,8 @@ type Theme struct {
 	KubeClusterBg   uint8
 	KubeNamespaceFg uint8
 	KubeNamespaceBg uint8
+	KubeProdFg uint8
+	KubeProdBg uint8
 
 	DotEnvFg uint8
 	DotEnvBg uint8
