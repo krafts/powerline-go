@@ -114,8 +114,8 @@ var themes = map[string]Theme{
 		KubeClusterBg:   26,
 		KubeNamespaceFg: 170,
 		KubeNamespaceBg: 17,
-		KubeProdFg: 15,
-		KubeProdBg: 160,
+		KubeProdFg:      15,
+		KubeProdBg:      160,
 
 		DotEnvFg: 15, // white
 		DotEnvBg: 55, // purple
