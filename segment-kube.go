@@ -108,7 +108,7 @@ func segmentKube(p *powerline) {
 				domains, err := ioutil.ReadFile(k8sDomainsFile)
 				if err == nil {
 					for _, domain := range strings.Split(string(domains), "\n") {
-						if strings.HasPrefix(domain, "PROD="){
+						if strings.HasPrefix(domain, "PROD=") {
 							prodDomain = strings.Split(domain, "=")[1]
 						} else if strings.HasPrefix(domain, "STAGING=") {
 							stagingDomain = strings.Split(domain, "=")[1]
@@ -164,7 +164,7 @@ func segmentKube(p *powerline) {
 		//kubeIconHasBeenDrawnYet = true
 		if prod || staging || uat || dev {
 			p.appendSegment("kube-cluster", pwl.Segment{
-				Content:    fmt.Sprintf("⎈ %s%s%s", label_b, cluster, label_e),
+				Content:    fmt.Sprintf("%s%s%s", label_b, cluster, label_e),
 				Foreground: fg,
 				Background: bg,
 			})
