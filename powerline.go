@@ -225,7 +225,7 @@ func (p *powerline) numEastAsianRunes(segmentContent *string) int {
 		switch width.LookupRune(r).Kind() {
 		case width.Neutral:
 		case width.EastAsianAmbiguous:
-			numEastAsianRunes++
+			//numEastAsianRunes++
 		case width.EastAsianWide:
 		case width.EastAsianNarrow:
 		case width.EastAsianFullwidth:
