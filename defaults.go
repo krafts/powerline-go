@@ -169,8 +169,8 @@ var themes = map[string]Theme{
 		TFWsFg: 15, // white
 		TFWsBg: 26, // blue
 
-		TimeFg: 15,
-		TimeBg: 236,
+		TimeFg: 237,
+		TimeBg: 0,
 
 		ShellVarFg: 52,
 		ShellVarBg: 11,
